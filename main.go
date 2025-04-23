@@ -385,6 +385,9 @@ func configureServiceObjects() {
 	if viper.IsSet("api_settings.add_captid_to_resolve") {
 		config.Setting.MAIN_SETTINGS.UseCaptureIDInAlias = viper.GetBool("api_settings.add_captid_to_resolve")
 	}
+	if viper.IsSet("api_settings.require_captid_to_resolve") {
+		config.Setting.MAIN_SETTINGS.RequireCaptureIDInAlias = viper.GetBool("api_settings.require_captid_to_resolve")
+	}
 
 	/* init map */
 	config.OAuth2TokenMap = make(map[string]model.OAuth2MapToken)

@@ -41,22 +41,24 @@ type SearchController struct {
 //
 // SecurityDefinitions:
 // bearer:
-//      type: apiKey
-//      name: Authorization
-//      in: header
+//
+//	type: apiKey
+//	name: Authorization
+//	in: header
 //
 // parameters:
-// + name: SearchTransactionRequest
-//   in: body
-//   type: object
-//   description: SearchTransactionRequest parameters
-//   schema:
+//   - name: SearchTransactionRequest
+//     in: body
+//     type: object
+//     description: SearchTransactionRequest parameters
+//     schema:
 //     type: SearchTransactionRequest
-//   required: true
+//     required: true
 //
 // responses:
-//   200: body:SearchCallData
-//   400: body:FailureResponse
+//
+//	200: body:SearchCallData
+//	400: body:FailureResponse
 func (sc *SearchController) SearchData(c echo.Context) error {
 
 	searchObject := model.SearchObject{}
@@ -79,7 +81,7 @@ func (sc *SearchController) SearchData(c echo.Context) error {
 		} else {
 			for ip := ip.Mask(ipnet.Mask); ipnet.Contains(ip); inc(ip) {
 				aliasData[ip.String()+":"+Port] = row.Alias
-				if config.Setting.MAIN_SETTINGS.UseCaptureIDInAlias {
+				if config.Setting.MAIN_SETTINGS.UseCaptureIDInAlias || config.Setting.MAIN_SETTINGS.RequireCaptureIDInAlias {
 					aliasData[ip.String()+":"+Port+":"+CaptureID] = row.Alias
 				}
 			}
@@ -125,20 +127,24 @@ func inc(ip net.IP) {
 //
 // SecurityDefinitions:
 // bearer:
-//      type: apiKey
-//      name: Authorization
-//      in: header
-//parameters:
-// + name: SearchObject
-//   in: body
-//   type: object
-//   description: SearchObject parameters
-//   schema:
+//
+//	type: apiKey
+//	name: Authorization
+//	in: header
+//
+// parameters:
+//   - name: SearchObject
+//     in: body
+//     type: object
+//     description: SearchObject parameters
+//     schema:
 //     type: SearchObject
-//   required: true
+//     required: true
+//
 // responses:
-//   200: body:SearchCallData
-//   400: body:UserLoginFailureResponse
+//
+//	200: body:SearchCallData
+//	400: body:UserLoginFailureResponse
 func (sc *SearchController) GetMessageById(c echo.Context) error {
 
 	searchObject := model.SearchObject{}
@@ -169,21 +175,24 @@ func (sc *SearchController) GetMessageById(c echo.Context) error {
 //
 // SecurityDefinitions:
 // bearer:
-//      type: apiKey
-//      name: Authorization
-//      in: header
+//
+//	type: apiKey
+//	name: Authorization
+//	in: header
 //
 // parameters:
-// + name: SearchObject
-//   in: body
-//   type: object
-//   description: SearchObject parameters
-//   schema:
+//   - name: SearchObject
+//     in: body
+//     type: object
+//     description: SearchObject parameters
+//     schema:
 //     type: SearchObject
-//   required: true
+//     required: true
+//
 // responses:
-//   200: body:MessageDecoded
-//   400: body:FailureResponse
+//
+//	200: body:MessageDecoded
+//	400: body:FailureResponse
 func (sc *SearchController) GetDecodeMessageById(c echo.Context) error {
 
 	searchObject := model.SearchObject{}
@@ -213,21 +222,24 @@ func (sc *SearchController) GetDecodeMessageById(c echo.Context) error {
 //
 // SecurityDefinitions:
 // bearer:
-//      type: apiKey
-//      name: Authorization
-//      in: header
+//
+//	type: apiKey
+//	name: Authorization
+//	in: header
 //
 // parameters:
-// + name: SearchObject
-//   in: body
-//   type: object
-//   description: SearchObject parameters
-//   schema:
+//   - name: SearchObject
+//     in: body
+//     type: object
+//     description: SearchObject parameters
+//     schema:
 //     type: SearchObject
-//   required: true
+//     required: true
+//
 // responses:
-//   200: body:SearchTransaction
-//   400: body:FailureResponse
+//
+//	200: body:SearchTransaction
+//	400: body:FailureResponse
 func (sc *SearchController) GetTransaction(c echo.Context) error {
 
 	transactionObject := model.SearchObject{}
@@ -253,7 +265,7 @@ func (sc *SearchController) GetTransaction(c echo.Context) error {
 		} else {
 			for ip := ipAddr.Mask(ipNet.Mask); ipNet.Contains(ip); inc(ip) {
 				aliasData[ip.String()+":"+Port] = row.Alias
-				if config.Setting.MAIN_SETTINGS.UseCaptureIDInAlias {
+				if config.Setting.MAIN_SETTINGS.UseCaptureIDInAlias || config.Setting.MAIN_SETTINGS.RequireCaptureIDInAlias {
 					aliasData[ip.String()+":"+Port+":"+CaptureID] = row.Alias
 				}
 			}
@@ -285,22 +297,24 @@ func (sc *SearchController) GetTransaction(c echo.Context) error {
 //
 // SecurityDefinitions:
 // bearer:
-//      type: apiKey
-//      name: Authorization
-//      in: header
+//
+//	type: apiKey
+//	name: Authorization
+//	in: header
 //
 // parameters:
-// + name: SearchObject
-//   in: body
-//   type: object
-//   description: SearchObject parameters
-//   schema:
+//   - name: SearchObject
+//     in: body
+//     type: object
+//     description: SearchObject parameters
+//     schema:
 //     type: SearchObject
-//   required: true
+//     required: true
 //
 // responses:
-//   200: body:SearchTransactionQos
-//   400: body:FailureResponse
+//
+//	200: body:SearchTransactionQos
+//	400: body:FailureResponse
 func (sc *SearchController) GetTransactionQos(c echo.Context) error {
 
 	searchObject := model.SearchObject{}
@@ -332,22 +346,24 @@ func (sc *SearchController) GetTransactionQos(c echo.Context) error {
 //
 // SecurityDefinitions:
 // bearer:
-//      type: apiKey
-//      name: Authorization
-//      in: header
+//
+//	type: apiKey
+//	name: Authorization
+//	in: header
 //
 // parameters:
-// + name: SearchObject
-//   in: body
-//   type: object
-//   description: SearchObject parameters
-//   schema:
+//   - name: SearchObject
+//     in: body
+//     type: object
+//     description: SearchObject parameters
+//     schema:
 //     type: SearchObject
-//   required: true
+//     required: true
 //
 // responses:
-//   200: body:SearchTransactionLogList
-//   400: body:FailureResponse
+//
+//	200: body:SearchTransactionLogList
+//	400: body:FailureResponse
 func (sc *SearchController) GetTransactionLog(c echo.Context) error {
 
 	searchObject := model.SearchObject{}
@@ -390,22 +406,24 @@ func (sc *SearchController) GetTransactionHepSub(c echo.Context) error {
 //
 // SecurityDefinitions:
 // bearer:
-//      type: apiKey
-//      name: Authorization
-//      in: header
+//
+//	type: apiKey
+//	name: Authorization
+//	in: header
 //
 // parameters:
-// + name: SearchObject
-//   in: body
-//   type: object
-//   description: SearchObject parameters
-//   schema:
+//   - name: SearchObject
+//     in: body
+//     type: object
+//     description: SearchObject parameters
+//     schema:
 //     type: SearchObject
-//   required: true
+//     required: true
 //
 // responses:
-//   200: body:PCAPResponse
-//   400: body:FailureResponse
+//
+//	200: body:PCAPResponse
+//	400: body:FailureResponse
 func (sc *SearchController) GetMessagesAsPCap(c echo.Context) error {
 
 	searchObject := model.SearchObject{}
@@ -446,23 +464,25 @@ func (sc *SearchController) GetMessagesAsPCap(c echo.Context) error {
 // - bearer:
 //
 // SecurityDefinitions:
-//   bearer:
-//      type: apiKey
-//      name: Authorization
-//      in: header
+//
+//	bearer:
+//	   type: apiKey
+//	   name: Authorization
+//	   in: header
 //
 // parameters:
-// + name: SearchObject
-//   in: body
-//   type: object
-//   description: SearchObject parameters
-//   schema:
+//   - name: SearchObject
+//     in: body
+//     type: object
+//     description: SearchObject parameters
+//     schema:
 //     type: SearchObject
-//   required: true
+//     required: true
 //
 // responses:
-//   200: body:TextResponse
-//   400: body:FailureResponse
+//
+//	200: body:TextResponse
+//	400: body:FailureResponse
 func (sc *SearchController) GetMessagesAsText(c echo.Context) error {
 
 	searchObject := model.SearchObject{}
@@ -505,25 +525,28 @@ func (sc *SearchController) GetMessagesAsText(c echo.Context) error {
 // produces:
 // - application/json
 // parameters:
-// + name: SearchObject
-//   in: body
-//   type: object
-//   description: SearchObject parameters
-//   schema:
+//   - name: SearchObject
+//     in: body
+//     type: object
+//     description: SearchObject parameters
+//     schema:
 //     type: SearchObject
-//   required: true
+//     required: true
+//
 // Security:
 // - bearer: []
 //
 // SecurityDefinitions:
 // bearer:
-//      type: apiKey
-//      name: Authorization
-//      in: header
+//
+//	type: apiKey
+//	name: Authorization
+//	in: header
 //
 // responses:
-//   201: body:ListUsers
-//   400: body:FailureResponse
+//
+//	201: body:ListUsers
+//	400: body:FailureResponse
 func (sc *SearchController) GetDataAsPCap(c echo.Context) error {
 
 	file, err := c.FormFile("fileKey")
@@ -572,25 +595,28 @@ func (sc *SearchController) GetDataAsPCap(c echo.Context) error {
 // produces:
 // - application/json
 // parameters:
-// + name: SearchObject
-//   in: body
-//   type: object
-//   description: SearchObject parameters
-//   schema:
+//   - name: SearchObject
+//     in: body
+//     type: object
+//     description: SearchObject parameters
+//     schema:
 //     type: SearchObject
-//   required: true
+//     required: true
+//
 // Security:
 // - bearer: []
 //
 // SecurityDefinitions:
 // bearer:
-//      type: apiKey
-//      name: Authorization
-//      in: header
+//
+//	type: apiKey
+//	name: Authorization
+//	in: header
 //
 // responses:
-//   201: body:ListUsers
-//   400: body:FailureResponse
+//
+//	201: body:ListUsers
+//	400: body:FailureResponse
 func (sc *SearchController) GetDataAsPCapNow(c echo.Context) error {
 
 	file, err := c.FormFile("fileKey")

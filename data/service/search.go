@@ -493,7 +493,7 @@ func (ss *SearchService) SearchData(searchObject *model.SearchObject, aliasData 
 		}
 
 		//add capture ID
-		if config.Setting.MAIN_SETTINGS.UseCaptureIDInAlias && dataElement.Exists("captureId") {
+		if (config.Setting.MAIN_SETTINGS.UseCaptureIDInAlias || config.Setting.MAIN_SETTINGS.RequireCaptureIDInAlias) && dataElement.Exists("captureId") {
 
 			captureID := dataElement.S("captureId").Data().(string)
 
@@ -510,7 +510,7 @@ func (ss *SearchService) SearchData(searchObject *model.SearchObject, aliasData 
 			}
 		}
 
-		if !alias.Exists(srcIPPort) {
+		if !alias.Exists(srcIPPort) && !config.Setting.MAIN_SETTINGS.RequireCaptureIDInAlias {
 
 			if value, ok := aliasData[srcIPPort]; ok {
 				alias.Set(value, srcIPPort)
@@ -519,7 +519,7 @@ func (ss *SearchService) SearchData(searchObject *model.SearchObject, aliasData 
 			}
 		}
 
-		if !alias.Exists(dstIPPort) {
+		if !alias.Exists(dstIPPort) && !config.Setting.MAIN_SETTINGS.RequireCaptureIDInAlias {
 
 			if value, ok := aliasData[dstIPPort]; ok {
 				alias.Set(value, dstIPPort)
@@ -1403,7 +1403,7 @@ func (ss *SearchService) getTransactionSummary(data *gabs.Container, aliasData m
 		dstIPPortZero := callElement.DstIP + ":" + strconv.Itoa(0)
 
 		//add capture ID
-		if config.Setting.MAIN_SETTINGS.UseCaptureIDInAlias && dataElement.Exists("captureId") {
+		if (config.Setting.MAIN_SETTINGS.UseCaptureIDInAlias || config.Setting.MAIN_SETTINGS.RequireCaptureIDInAlias) && dataElement.Exists("captureId") {
 
 			captureID := dataElement.S("captureId").Data().(string)
 
@@ -1420,7 +1420,7 @@ func (ss *SearchService) getTransactionSummary(data *gabs.Container, aliasData m
 			}
 		}
 
-		if !alias.Exists(srcIPPort) {
+		if !alias.Exists(srcIPPort) && !config.Setting.MAIN_SETTINGS.RequireCaptureIDInAlias {
 
 			if value, ok := aliasData[srcIPPort]; ok {
 				alias.Set(value, srcIPPort)
@@ -1429,7 +1429,7 @@ func (ss *SearchService) getTransactionSummary(data *gabs.Container, aliasData m
 			}
 		}
 
-		if !alias.Exists(dstIPPort) {
+		if !alias.Exists(dstIPPort) && !config.Setting.MAIN_SETTINGS.RequireCaptureIDInAlias {
 
 			if value, ok := aliasData[dstIPPort]; ok {
 				alias.Set(value, dstIPPort)

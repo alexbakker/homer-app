@@ -85,7 +85,8 @@
     },
     "api_settings": {
         "enable_token_access": false,
-        "add_captid_to_resolve": false
+        "add_captid_to_resolve": false,
+        "require_captid_to_resolve": false
     },
     "https_settings": {
         "help": "SSL settings for homer-app",
